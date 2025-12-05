@@ -3,6 +3,7 @@ import { Send, Save, Settings, Trash2 } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import JsonEditor from './JsonEditor';
+import { API_BASE_URL } from '../apiConfig'; // <--- NEW IMPORT
 
 export default function RequestPanel({ setResponse, setLoading, requestToLoad, userId, isDark }) {
   // --- STATE ---
@@ -45,7 +46,8 @@ export default function RequestPanel({ setResponse, setLoading, requestToLoad, u
 
   const fetchEnvs = async () => {
     try {
-        const res = await axios.get('http://localhost:5000/environments', { params: { userId }});
+        // Updated URL
+        const res = await axios.get(`${API_BASE_URL}/environments`, { params: { userId }});
         setEnvs(res.data);
     } catch(e) { console.error("Error loading envs"); }
   };
@@ -89,8 +91,8 @@ export default function RequestPanel({ setResponse, setLoading, requestToLoad, u
 
       const startTime = performance.now();
       
-      // 3. Send Request
-      const res = await axios.post('http://localhost:5000/proxy', {
+      // 3. Send Request (Updated URL)
+      const res = await axios.post(`${API_BASE_URL}/proxy`, {
         url: processedUrl, 
         method, 
         headers: parsedHeaders, 
@@ -116,7 +118,7 @@ export default function RequestPanel({ setResponse, setLoading, requestToLoad, u
         setResponse({
             status: 0,
             statusText: "Network Error",
-            data: { error: "Could not reach localhost:5000. Is the backend terminal running?" },
+            data: { error: "Could not reach the server. Is the backend running?" },
             time: "0ms"
         });
       } else {
@@ -145,7 +147,8 @@ export default function RequestPanel({ setResponse, setLoading, requestToLoad, u
     }
 
     try {
-        await axios.post('http://localhost:5000/environments', {
+        // Updated URL
+        await axios.post(`${API_BASE_URL}/environments`, {
             ...editingEnv,
             variables: parsedVars,
             userId
@@ -160,7 +163,8 @@ export default function RequestPanel({ setResponse, setLoading, requestToLoad, u
 
   const handleDeleteEnv = async (id) => {
     if(!confirm("Delete this environment?")) return;
-    await axios.delete(`http://localhost:5000/environments/${id}`);
+    // Updated URL
+    await axios.delete(`${API_BASE_URL}/environments/${id}`);
     fetchEnvs();
     if(activeEnvId === id) setActiveEnvId('');
     toast.success("Environment Deleted");
@@ -169,7 +173,8 @@ export default function RequestPanel({ setResponse, setLoading, requestToLoad, u
   const openSaveModal = async () => {
     setShowSaveModal(true);
     try {
-        const res = await axios.get('http://localhost:5000/collections', { params: { userId } });
+        // Updated URL
+        const res = await axios.get(`${API_BASE_URL}/collections`, { params: { userId } });
         setCollections(res.data);
         if (res.data.length > 0) setSelectedCollectionId(res.data[0].id);
     } catch (e) { console.error("Failed to load collections"); }
@@ -183,7 +188,8 @@ export default function RequestPanel({ setResponse, setLoading, requestToLoad, u
         try { parsedHeaders = JSON.parse(headers || '{}'); } catch(e){}
         try { parsedBody = JSON.parse(body || '{}'); } catch(e){}
 
-        await axios.post(`http://localhost:5000/collections/${selectedCollectionId}/items`, {
+        // Updated URL
+        await axios.post(`${API_BASE_URL}/collections/${selectedCollectionId}/items`, {
             name: saveName,
             url, method, headers: parsedHeaders, body: parsedBody, userId
         });
