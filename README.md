@@ -67,11 +67,6 @@ npm run dev
   * **Database & Auth:** Supabase (PostgreSQL)
   * **Tools:** VS Code, Git
 
-## 📸 Screenshots
-
-| Light Mode | Dark Mode |
-| :---: | :---: |
-
 ## 🤝 Contributing
 
 Contributions are welcome\! Please check the specific `README.md` files in the `client` and `server` directories for detailed development instructions.
