@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Smooth background transition when switching themes */
+body {
+  @apply bg-gray-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200 transition-colors duration-200;
+}
+
+/* Custom Scrollbar - Thin and Sleek */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-slate-700 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400 dark:bg-slate-600;
+}
+
+/* Common Input Styles to avoid repetition */
+input, select, textarea {
+  @apply bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white transition-colors;
+}
