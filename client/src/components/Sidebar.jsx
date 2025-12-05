@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { LayoutList, History, Folder, Sun, Moon, LogOut } from 'lucide-react';
 import axios from 'axios';
 import { supabase } from '../supabaseClient';
+import { API_BASE_URL } from '../apiConfig'; // <--- NEW IMPORT
 
 export default function Sidebar({ onLoadHistory, userId, isDark, toggleTheme }) {
   const [history, setHistory] = useState([]);
@@ -13,14 +14,16 @@ export default function Sidebar({ onLoadHistory, userId, isDark, toggleTheme }) 
 
   const fetchHistory = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/history', { params: { userId } });
+      // Updated URL
+      const res = await axios.get(`${API_BASE_URL}/history`, { params: { userId } });
       setHistory(res.data);
     } catch (error) { console.error("Failed to fetch history"); }
   };
 
   const fetchCollections = async () => {
     try {
-        const res = await axios.get('http://localhost:5000/collections', { params: { userId } });
+        // Updated URL
+        const res = await axios.get(`${API_BASE_URL}/collections`, { params: { userId } });
         setCollections(res.data);
     } catch (e) { console.error("Error loading collections"); }
   };
@@ -28,7 +31,8 @@ export default function Sidebar({ onLoadHistory, userId, isDark, toggleTheme }) 
   const createCollection = async () => {
     const name = prompt("Enter Collection Name:");
     if (!name) return;
-    await axios.post('http://localhost:5000/collections', { name, userId });
+    // Updated URL
+    await axios.post(`${API_BASE_URL}/collections`, { name, userId });
     fetchCollections();
   };
 
