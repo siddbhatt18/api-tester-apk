@@ -3,8 +3,6 @@
 
 **A full-stack, production-ready API testing tool** built for developers who need a lightweight, powerful alternative to Postman.
 
-[Image of API Tester dashboard screenshot showing dark mode interface]
-
 ## 📖 Overview
 
 **API Tester Pro** allows developers to send HTTP requests, inspect responses, manage testing history, and organize workflows using collections and environment variables. Built with a modern **React** frontend and a robust **Node.js** proxy backend, it solves common browser limitations (CORS) while providing a premium developer experience with features like Dark Mode, Syntax Highlighting, and Cloud Sync via Supabase.
